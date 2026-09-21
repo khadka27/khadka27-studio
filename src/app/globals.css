@@ -1,26 +1,193 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap");
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* ═══════════════════════════════════════════
+   CUSTOM THEME TOKENS
+═══════════════════════════════════════════ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-cream: #F1F1EB;
+  --color-black: #050505;
+  --color-soft-dark: #101010;
+  --color-muted: #8D8D87;
+  --color-burgundy: #8B2020;
+  --color-border-dark: rgba(255,255,255,0.08);
+  --color-border-light: rgba(0,0,0,0.1);
+
+  --font-display: "Anton", sans-serif;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --radius-pill: 9999px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ═══════════════════════════════════════════
+   BASE
+═══════════════════════════════════════════ */
+html {
+  scroll-behavior: auto;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  background-color: #F1F1EB;
+  color: #050505;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+/* ═══════════════════════════════════════════
+   TYPOGRAPHY HELPERS
+═══════════════════════════════════════════ */
+.font-display { font-family: var(--font-display) !important; }
+.font-serif   { font-family: var(--font-serif)   !important; }
+.font-body    { font-family: var(--font-body)     !important; }
+
+/* ═══════════════════════════════════════════
+   GRAIN OVERLAY
+═══════════════════════════════════════════ */
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.028;
+}
+
+/* ═══════════════════════════════════════════
+   ROLLING LINK NAV
+═══════════════════════════════════════════ */
+.rolling-link {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  color: #050505;
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  font-family: var(--font-body);
+  line-height: 1em;
+  height: 1em;
+}
+
+.rolling-link__inner {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.rolling-link:hover .rolling-link__inner { transform: translateY(-100%); }
+
+.rolling-link__top,
+.rolling-link__bottom {
+  display: block;
+  height: 1em;
+  line-height: 1em;
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════
+   PROJECT CARD HOVER
+═══════════════════════════════════════════ */
+.proj-img { transition: transform 700ms cubic-bezier(0.2,0.7,0.2,1); }
+.proj-card:hover .proj-img { transform: scale(1.035); }
+.proj-card:hover .proj-arrow {
+  background: rgba(241,241,235,0.08) !important;
+  border-color: rgba(241,241,235,0.3) !important;
+}
+
+/* ═══════════════════════════════════════════
+   FORM
+═══════════════════════════════════════════ */
+.form-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+  padding: 12px 0;
+  font-size: 15px;
+  color: #050505;
+  font-family: var(--font-body);
+  outline: none;
+  width: 100%;
+  transition: border-color 0.2s ease;
+}
+.form-input:focus { border-bottom-color: #050505; }
+.form-input::placeholder { color: rgba(141,141,135,0.5); }
+
+/* ═══════════════════════════════════════════
+   CTA / FOOTER
+═══════════════════════════════════════════ */
+.cta-circle:hover {
+  background: rgba(241,241,235,0.08) !important;
+  border-color: rgba(241,241,235,0.35) !important;
+  transform: scale(1.04);
+}
+
+.social-icon {
+  color: rgba(241,241,235,0.4);
+  display: flex;
+  align-items: center;
+  transition: color 0.3s, transform 0.3s;
+}
+.social-icon:hover { color: #F1F1EB; transform: translateY(-2px); }
+
+.back-to-top {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(241,241,235,0.15);
+  background: transparent;
+  color: rgba(241,241,235,0.5);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.back-to-top:hover {
+  background: rgba(241,241,235,0.1);
+  border-color: rgba(241,241,235,0.3);
+  color: #F1F1EB;
+}
+
+/* ═══════════════════════════════════════════
+   ACCORDION
+═══════════════════════════════════════════ */
+.accordion-content {
+  overflow: hidden;
+  transition: max-height 0.55s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ═══════════════════════════════════════════
+   FOCUS STATES (a11y)
+═══════════════════════════════════════════ */
+:focus-visible { outline: 2px solid #050505; outline-offset: 3px; }
+
+/* ═══════════════════════════════════════════
+   REDUCED MOTION
+═══════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE HELPERS
+═══════════════════════════════════════════ */
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+
+/* ═══════════════════════════════════════════
+   WORK LIST HOVER
+═══════════════════════════════════════════ */
+.work-list-item .work-list-img { transition: transform 700ms cubic-bezier(.2,.7,.2,1); }
+.work-list-item:hover .work-list-img { transform: scale(1.035); }
+
+/* Related works */
+.related-wrap:hover .related-img { transform: scale(1.035) !important; }
+.related-img { transition: transform 700ms cubic-bezier(.2,.7,.2,1); }
