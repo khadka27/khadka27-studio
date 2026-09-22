@@ -1,151 +1,196 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { portfolioData } from "@/data/portfolio";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
-import PlaceholderImage, { gradients } from "@/components/ui/PlaceholderImage";
+import { gsap } from "@/lib/gsap";
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
-  const nameRef = useRef<HTMLDivElement>(null);
-  const portraitWrapRef = useRef<HTMLDivElement>(null);
-  const portraitRef = useRef<HTMLDivElement>(null);
-  const copyRef = useRef<HTMLDivElement>(null);
-  const availRef = useRef<HTMLDivElement>(null);
-  const scrollSvgRef = useRef<SVGSVGElement>(null);
+  const headlineRef = useRef<HTMLDivElement>(null);
+  const stackRef = useRef<HTMLDivElement>(null);
+  const card1Ref = useRef<HTMLDivElement>(null);
+  const card2Ref = useRef<HTMLDivElement>(null);
+  const card3Ref = useRef<HTMLDivElement>(null);
+  const nameLeftRef = useRef<HTMLDivElement>(null);
+  const nameRightRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      const nameWords = nameRef.current?.querySelectorAll(".hero-word-inner");
-      if (nameWords) gsap.set(nameWords, { yPercent: 110 });
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      gsap.set(portraitWrapRef.current, { clipPath: "inset(100% 0% 0% 0%)" });
-      gsap.set(portraitRef.current, { scale: 1.08 });
+      // Initial states
+      gsap.set(headlineRef.current, { y: 35, opacity: 0 });
+      gsap.set([nameLeftRef.current, nameRightRef.current], { opacity: 0, y: 30 });
+      gsap.set(card1Ref.current, { opacity: 0, scale: 0.85, rotate: -25, x: -40 });
+      gsap.set(card2Ref.current, { opacity: 0, scale: 0.85, rotate: -5, x: 0 });
+      gsap.set(card3Ref.current, { opacity: 0, scale: 0.85, rotate: 25, x: 40 });
 
-      const tl = gsap.timeline({ delay: 1.5 });
+      tl.to(headlineRef.current, { y: 0, opacity: 1, duration: 1, delay: 0.15 })
+        .to(card1Ref.current, { opacity: 1, scale: 1, rotate: -15, x: -16, duration: 0.9, ease: "back.out(1.4)" }, "-=0.6")
+        .to(card2Ref.current, { opacity: 1, scale: 1, rotate: -1, x: 0, duration: 0.9, ease: "back.out(1.4)" }, "-=0.7")
+        .to(card3Ref.current, { opacity: 1, scale: 1, rotate: 12, x: 22, duration: 0.9, ease: "back.out(1.4)" }, "-=0.7")
+        .to([nameLeftRef.current, nameRightRef.current], { opacity: 1, y: 0, duration: 0.8, stagger: 0.15 }, "-=0.5");
 
-      if (nameWords) {
-        tl.to(nameWords, { yPercent: 0, duration: 0.9, stagger: 0.06, ease: "power3.out" });
-      }
+      // Subtle interactive mouse tilt on the cards
+      const handleMouseMove = (e: MouseEvent) => {
+        if (!stackRef.current) return;
+        const rect = stackRef.current.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const deltaX = (e.clientX - centerX) / 28;
+        const deltaY = (e.clientY - centerY) / 28;
 
-      tl.to(portraitWrapRef.current, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.1, ease: "power4.inOut" }, "-=0.5")
-        .to(portraitRef.current, { scale: 1, duration: 1.3, ease: "power3.out" }, "<")
-        .fromTo(copyRef.current, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, "-=0.6")
-        .fromTo(availRef.current, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, "-=0.5");
+        gsap.to(card1Ref.current, { x: -16 + deltaX * 0.8, y: deltaY * 0.8, duration: 0.8, ease: "power2.out" });
+        gsap.to(card2Ref.current, { x: deltaX * 1.2, y: deltaY * 1.2, duration: 0.8, ease: "power2.out" });
+        gsap.to(card3Ref.current, { x: 22 + deltaX * 1.6, y: deltaY * 1.6, duration: 0.8, ease: "power2.out" });
+      };
 
-      // Scroll indicator spin
-      gsap.to(scrollSvgRef.current, { rotation: 360, duration: 16, repeat: -1, ease: "none", transformOrigin: "center center" });
-
-      // Parallax
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top top",
-        end: "bottom top",
-        scrub: true,
-        onUpdate: (self) => {
-          const p = self.progress;
-          gsap.set(portraitWrapRef.current, { y: p * -60 });
-          gsap.set(nameRef.current, { y: p * -30 });
-          gsap.set(copyRef.current, { y: p * -20 });
-        },
-      });
-    });
+      window.addEventListener("mousemove", handleMouseMove);
+      return () => window.removeEventListener("mousemove", handleMouseMove);
+    }, sectionRef);
 
     return () => ctx.revert();
   }, []);
-
-  const words = portfolioData.name.split(" ");
 
   return (
     <section
       ref={sectionRef}
       id="hero"
-      className="relative min-h-screen bg-[#F1F1EB] flex flex-col justify-end pb-14 overflow-hidden"
+      className="relative min-h-screen bg-[#ECECE7] text-[#111] pt-28 sm:pt-32 pb-12 sm:pb-16 px-4 sm:px-8 overflow-hidden flex flex-col justify-between"
     >
-      <div className="grain" />
 
-      {/* Giant name */}
-      <div
-        ref={nameRef}
-        className="absolute inset-x-0 top-1/2 -translate-y-[58%] px-[clamp(20px,4vw,60px)] pointer-events-none select-none"
-      >
+      {/* Subtle Grain Overlay */}
+      <div className="grain opacity-[0.025]" />
+
+      {/* ══════════════════════════════════════════════════════════════
+          TOP HEADLINE BLOCK (Balanced Editorial Grotesque)
+      ══════════════════════════════════════════════════════════════ */}
+      <div ref={headlineRef} className="relative z-10 w-fit mx-auto text-center px-4 mt-2 sm:mt-4">
         <h1
-          className="flex flex-wrap font-display text-[#050505] leading-none"
-          style={{
-            fontSize: "clamp(4.5rem,10vw,11rem)",
-            letterSpacing: "-0.03em",
-            gap: "0 0.15em",
-          }}
+          className="font-['Hanken_Grotesk',sans-serif] font-[800] text-[#111] leading-[0.91] tracking-[-0.028em] uppercase select-none"
+          style={{ fontSize: "clamp(3rem, 6.6vw, 6.2rem)" }}
         >
-          {words.map((word, i) => (
-            <span key={i} className="overflow-hidden inline-block align-bottom">
-              <span className="hero-word-inner block will-change-transform">{word}</span>
-            </span>
-          ))}
+          CONTENT CREATOR<br />
+          &amp; STRATEGIST.
         </h1>
-      </div>
 
-      {/* Portrait */}
-      <div className="absolute bottom-[10%] left-1/2 -translate-x-1/2 z-10">
-        <div
-          ref={portraitWrapRef}
-          className="overflow-hidden rounded"
-          style={{ width: "clamp(200px,18vw,300px)", aspectRatio: "3/4" }}
-        >
-          <div ref={portraitRef} className="w-full h-full will-change-transform">
-            <PlaceholderImage
-              gradient={gradients.portrait}
-              className="w-full h-full grayscale"
-              aspectRatio=""
-              label="Portrait"
-            />
+        {/* Sub-caption row matching exact bounding box of headline */}
+        <div className="w-full flex justify-between items-start mt-5 sm:mt-6 text-[#222]">
+          <div className="text-left font-['Hanken_Grotesk',sans-serif] text-[13px] sm:text-[14px] leading-[1.35] font-medium tracking-tight">
+            Currently Crafting Engaging<br />
+            Content &amp; Campaigns
+          </div>
+          <div className="text-right font-['Hanken_Grotesk',sans-serif] text-[13px] sm:text-[14px] leading-[1.35] font-medium tracking-tight">
+            (2023 – Present)
           </div>
         </div>
       </div>
 
-      {/* Bottom row */}
-      <div className="relative z-20 max-w-[1340px] mx-auto w-full px-[clamp(20px,4vw,60px)] flex justify-between items-end">
-        {/* Left copy */}
-        <div ref={copyRef} className="max-w-[220px]">
-          <div className="flex items-start gap-2.5 mb-4">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="mt-1 shrink-0">
-              <path d="M8 1v14M8 15l6-6M8 15l-6-6" stroke="#050505" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            <p className="font-body text-[13px] leading-[1.65] text-[#3A3A38]">
-              {portfolioData.introduction}
-            </p>
+      {/* ══════════════════════════════════════════════════════════════
+          CENTERPIECE: RAJ + LAYERED PHOTO STACK + GUPTA
+          (BANKOLE [STACK] WELLINGTON style)
+      ══════════════════════════════════════════════════════════════ */}
+      <div className="relative z-10 max-w-[1340px] mx-auto w-full flex items-center justify-center my-4 sm:my-6">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-6 sm:gap-10 lg:gap-14 w-full">
+          {/* Left Name: RAJ (clean regular/medium sans, matching BANKOLE) */}
+          <div
+            ref={nameLeftRef}
+            className="order-2 md:order-1 flex-1 text-center md:text-right select-none"
+          >
+            <h2
+              className="font-['Hanken_Grotesk',sans-serif] font-[500] text-[#111] uppercase tracking-[0.02em] leading-none"
+              style={{ fontSize: "clamp(3.2rem, 6.5vw, 5.8rem)" }}
+            >
+              RAJ
+            </h2>
           </div>
 
-          {/* Scroll indicator */}
-          <div className="relative w-[60px] h-[60px] mt-6">
-            <svg ref={scrollSvgRef} viewBox="0 0 60 60" className="absolute inset-0 w-full h-full">
-              <path id="circlePath" d="M30,30 m-22,0 a22,22 0 1,1 44,0 a22,22 0 1,1 -44,0" fill="none" />
-              <text style={{ fontSize: "8.5px", fill: "#8D8D87", letterSpacing: "2px" }}>
-                <textPath href="#circlePath">SCROLL TO EXPLORE • SCROLL TO EXPLORE •</textPath>
-              </text>
-            </svg>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <svg width="10" height="14" viewBox="0 0 10 14" fill="none">
-                <path d="M5 1v12M1 9l4 4 4-4" stroke="#050505" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+          {/* Center: Overlapping Tilted Photos Collage */}
+          <div
+            ref={stackRef}
+            className="order-1 md:order-2 relative w-[320px] sm:w-[370px] h-[350px] sm:h-[400px] shrink-0 flex items-center justify-center cursor-pointer"
+          >
+            {/* Card 1: Back tilted metallic / texture card */}
+            <div
+              ref={card1Ref}
+              className="absolute w-[210px] sm:w-[240px] h-[270px] sm:h-[310px] rounded overflow-hidden shadow-2xl border border-black/15 origin-bottom-left will-change-transform"
+              style={{
+                boxShadow: "-15px 25px 50px -10px rgba(0, 0, 0, 0.45)",
+              }}
+            >
+              <div className="w-full h-full relative">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/marquee/dream-big-eat-well.jpg"
+                  alt="Campaign Media"
+                  className="w-full h-full object-cover grayscale contrast-125"
+                />
+                <div className="absolute inset-0 bg-gradient-to-tr from-black/50 via-black/10 to-white/30" />
+              </div>
+            </div>
+
+            {/* Card 2: Middle dark square portrait */}
+            <div
+              ref={card2Ref}
+              className="absolute w-[225px] sm:w-[255px] h-[275px] sm:h-[315px] rounded overflow-hidden shadow-2xl border border-black/20 bg-[#0f0f0f] origin-bottom will-change-transform"
+              style={{
+                boxShadow: "0 30px 60px -15px rgba(0, 0, 0, 0.55)",
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/Images/raj_gupta.png"
+                alt="Raj Gupta Portrait"
+                className="w-full h-full object-cover grayscale contrast-130 brightness-90"
+              />
+              <div className="absolute inset-0 bg-black/20" />
+            </div>
+
+            {/* Card 3: Front tilted high-contrast photo (matching the guy in hoodie) */}
+            <div
+              ref={card3Ref}
+              className="absolute w-[215px] sm:w-[245px] h-[275px] sm:h-[315px] rounded overflow-hidden shadow-2xl border border-black/25 bg-black origin-bottom-right will-change-transform"
+              style={{
+                boxShadow: "15px 30px 65px -12px rgba(0, 0, 0, 0.6)",
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/Images/raj_gupta.png"
+                alt="Raj Gupta"
+                className="w-full h-full object-cover grayscale contrast-140 brightness-100"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
             </div>
           </div>
-        </div>
 
-        {/* Right availability */}
-        <div ref={availRef} className="text-right">
-          <p className="font-body text-[10px] tracking-[0.18em] uppercase text-[#8D8D87] mb-1.5">
-            {portfolioData.availability}
-          </p>
-          <p
-            className="font-display font-bold text-[#050505] leading-none"
-            style={{ fontSize: "clamp(1.6rem,3.5vw,2.8rem)", letterSpacing: "-0.02em" }}
+          {/* Right Name: GUPTA (clean regular/medium sans, matching WELLINGTON) */}
+          <div
+            ref={nameRightRef}
+            className="order-3 flex-1 text-center md:text-left select-none"
           >
-            {portfolioData.availabilityDate}
-          </p>
+            <h2
+              className="font-['Hanken_Grotesk',sans-serif] font-[500] text-[#111] uppercase tracking-[0.02em] leading-none"
+              style={{ fontSize: "clamp(3.2rem, 6.5vw, 5.8rem)" }}
+            >
+              GUPTA
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      {/* ══════════════════════════════════════════════════════════════
+          BOTTOM STATUS STRIP
+      ══════════════════════════════════════════════════════════════ */}
+      <div className="relative z-10 max-w-[1340px] mx-auto w-full flex flex-col sm:flex-row justify-between items-center gap-4 text-[#444] text-[11px] tracking-[0.14em] uppercase font-medium">
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-[#30A46C] animate-pulse" />
+          <span>Available for Brand &amp; Digital Collaborations</span>
+        </div>
+        <div>
+          <span>London, UK · MSc Digital Marketing</span>
         </div>
       </div>
     </section>

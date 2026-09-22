@@ -35,7 +35,7 @@ export default function Contact() {
     setFormData({ name: "", role: "", email: "", message: "" });
   };
 
-  const roles = ["Designer", "Developer", "Marketing", "Other"];
+  const roles = ["Brand / Company", "Agency / Studio", "Creator / Collab", "Other"];
 
   return (
     <section ref={sectionRef} id="contact" className="bg-[#F1F1EB] py-[clamp(100px,14vw,180px)] overflow-hidden relative">
@@ -137,6 +137,12 @@ export default function Contact() {
                 <span className="font-body text-[11px] tracking-[0.1em] uppercase text-[#8D8D87] min-w-[60px]">Email</span>
                 <a href={`mailto:${portfolioData.email}`} className="font-body text-[14px] text-[#050505] no-underline border-b border-black/[0.15] pb-0.5 hover:border-black/40 transition-colors">
                   {portfolioData.email}
+                </a>
+              </div>
+              <div className="flex gap-4 items-center">
+                <span className="font-body text-[11px] tracking-[0.1em] uppercase text-[#8D8D87] min-w-[60px]">Phone</span>
+                <a href={`tel:${portfolioData.phone}`} className="font-body text-[14px] text-[#050505] no-underline border-b border-black/[0.15] pb-0.5 hover:border-black/40 transition-colors">
+                  {portfolioData.phone}
                 </a>
               </div>
               <div className="flex gap-4 items-center">

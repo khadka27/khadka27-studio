@@ -8,20 +8,16 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import PlaceholderImage, { gradients } from "@/components/ui/PlaceholderImage";
 
-const projectGradients: Record<string, string> = {
-  sathi: gradients.sathi,
-  "smart-docs": gradients.smartDocs,
-  "futsal-nepal": gradients.futsal,
-  "song-playlist": gradients.playlist,
-  "car-collection": gradients.cars,
-};
-
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
   if (!project) return { title: "Project Not Found" };
   return {
-    title: `${project.title} — Roshan Khadka`,
+    title: `${project.title} — Raj Gupta`,
     description: project.shortDescription,
   };
 }
@@ -30,13 +26,17 @@ export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
 }
 
-export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function ProjectPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
   if (!project) notFound();
 
   const related = getRelatedProjects(project.relatedProjects);
-  const grad = projectGradients[slug] ?? gradients.marquee;
+  const heroImg = project.heroImage || project.thumbnail;
 
   return (
     <>
@@ -46,22 +46,48 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <div className="bg-[#F1F1EB] pt-[120px]">
           <div className="max-w-[1340px] mx-auto px-[clamp(20px,4vw,60px)]">
             {/* Breadcrumb */}
-            <nav className="flex items-center gap-2 mb-12 font-body text-[12px] text-[#8D8D87] tracking-[0.08em]" aria-label="Breadcrumb">
-              <Link href="/" className="no-underline text-[#8D8D87] hover:text-[#050505] transition-colors">Home</Link>
+            <nav
+              className="flex items-center gap-2 mb-12 font-body text-[12px] text-[#8D8D87] tracking-[0.08em]"
+              aria-label="Breadcrumb"
+            >
+              <Link href="/" className="no-underline text-[#8D8D87] hover:text-[#050505] transition-colors">
+                Home
+              </Link>
               <span>/</span>
-              <Link href="/work" className="no-underline text-[#8D8D87] hover:text-[#050505] transition-colors">Work</Link>
+              <Link href="/work" className="no-underline text-[#8D8D87] hover:text-[#050505] transition-colors">
+                Work
+              </Link>
               <span>/</span>
               <span className="text-[#050505]">{project.title}</span>
             </nav>
 
-            <h1 className="font-display font-bold text-[#050505] leading-[0.9] mb-[clamp(60px,8vw,100px)]" style={{ fontSize: "clamp(3rem,10vw,9rem)", letterSpacing: "-0.03em" }}>
+            <div className="flex flex-wrap items-center gap-3 mb-4">
+              <span className="font-mono text-[11px] uppercase tracking-wider text-[#8B2020] font-semibold">
+                {project.year} · {project.client}
+              </span>
+              <span className="font-body text-[11px] border border-black/15 text-[#3A3A38] rounded-full px-3 py-0.5">
+                {project.type}
+              </span>
+            </div>
+
+            <h1
+              className="font-display font-bold text-[#050505] leading-[0.9] mb-[clamp(40px,6vw,80px)]"
+              style={{ fontSize: "clamp(2.8rem,8vw,6.5rem)", letterSpacing: "-0.03em" }}
+            >
               {project.title}
             </h1>
           </div>
 
           {/* Full-width hero */}
           <div className="w-full aspect-[21/9] overflow-hidden">
-            <PlaceholderImage gradient={grad} className="w-full h-full" aspectRatio="" label={project.title} />
+            <PlaceholderImage
+              src={heroImg}
+              alt={project.title}
+              gradient={gradients.marquee}
+              className="w-full h-full"
+              aspectRatio=""
+              label={project.title}
+            />
           </div>
         </div>
 
@@ -73,7 +99,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
             {/* Article */}
             <article>
-              <blockquote className="font-serif italic text-[#050505] leading-[1.4] mb-[clamp(40px,5vw,60px)] border-l-2 border-black/[0.12] pl-7" style={{ fontSize: "clamp(1.4rem,3vw,2.2rem)" }}>
+              <blockquote
+                className="font-serif italic text-[#050505] leading-[1.4] mb-[clamp(40px,5vw,60px)] border-l-2 border-black/[0.12] pl-7"
+                style={{ fontSize: "clamp(1.4rem,3vw,2.2rem)" }}
+              >
                 &ldquo;{project.shortDescription}&rdquo;
               </blockquote>
 
@@ -81,41 +110,68 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 <p className={bodyClass}>{project.description}</p>
               </Section>
 
-              <div className="my-12 overflow-hidden rounded aspect-video">
-                <PlaceholderImage gradient={grad} className="w-full h-full" aspectRatio="" label="Overview" />
-              </div>
+              {/* Key Results Highlight */}
+              {project.results && project.results.length > 0 && (
+                <div className="my-10 p-6 sm:p-8 rounded-xl bg-black/[0.03] border border-black/[0.08]">
+                  <p className="font-body text-[11px] tracking-[0.18em] uppercase text-[#8B2020] mb-4 font-semibold">
+                    Key Performance &amp; Results
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {project.results.map((res, idx) => (
+                      <div key={idx} className="flex items-start gap-2.5">
+                        <span className="w-2 h-2 rounded-full bg-[#8B2020] mt-2 shrink-0" />
+                        <span className="font-body text-[14px] font-medium text-[#050505] leading-snug">
+                          {res}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <Section title="The Challenge">
                 <p className={bodyClass}>{project.challenge}</p>
               </Section>
 
-              <Section title="The Solution">
+              <Section title="The Solution &amp; Strategy">
                 <p className={bodyClass}>{project.solution}</p>
               </Section>
 
               {/* Gallery grid */}
-              <div className="grid grid-cols-2 gap-3 my-12">
-                {[0, 1].map((i) => (
-                  <div key={i} className="overflow-hidden rounded aspect-[4/3]">
-                    <PlaceholderImage gradient={i === 0 ? grad : "from-stone-400 via-neutral-400 to-zinc-500"} className="w-full h-full" aspectRatio="" label={`Gallery ${i + 1}`} />
-                  </div>
-                ))}
-              </div>
+              {project.images && project.images.length > 0 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-12">
+                  {project.images.map((imgSrc, i) => (
+                    <div key={i} className="overflow-hidden rounded-lg aspect-[4/3] border border-black/10">
+                      <PlaceholderImage
+                        src={imgSrc}
+                        alt={`${project.title} capture ${i + 1}`}
+                        gradient={gradients.marquee}
+                        className="w-full h-full"
+                        aspectRatio=""
+                        label={`Gallery ${i + 1}`}
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
 
-              <Section title="Design Details">
-                <p className={bodyClass}>{project.designDetails}</p>
-              </Section>
-
-              <Section title="Outcome">
-                <p className={bodyClass}>{project.outcome}</p>
-              </Section>
+              {project.designDetails && (
+                <Section title="Execution &amp; Production Details">
+                  <p className={bodyClass}>{project.designDetails}</p>
+                </Section>
+              )}
 
               {/* Tools */}
               <div className="mt-12 pt-8 border-t border-black/[0.08]">
-                <p className="font-body text-[11px] tracking-[0.15em] uppercase text-[#8D8D87] mb-4">Built with</p>
+                <p className="font-body text-[11px] tracking-[0.15em] uppercase text-[#8D8D87] mb-4">
+                  Platforms &amp; Tools Used
+                </p>
                 <div className="flex flex-wrap gap-2">
                   {project.tools.map((tool) => (
-                    <span key={tool} className="font-body text-[12px] tracking-[0.04em] text-[#8D8D87] border border-black/[0.12] rounded-full px-3.5 py-1.5">
+                    <span
+                      key={tool}
+                      className="font-body text-[12px] tracking-[0.04em] text-[#3A3A38] border border-black/[0.12] bg-black/[0.02] rounded-full px-3.5 py-1.5"
+                    >
                       {tool}
                     </span>
                   ))}
@@ -135,7 +191,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="mb-[clamp(32px,5vw,48px)]">
-      <h2 className="font-body text-[11px] tracking-[0.18em] uppercase text-[#8D8D87] mb-4 font-medium">{title}</h2>
+      <h2 className="font-body text-[11px] tracking-[0.18em] uppercase text-[#8D8D87] mb-4 font-medium">
+        {title}
+      </h2>
       {children}
     </div>
   );

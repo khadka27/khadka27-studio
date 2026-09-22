@@ -65,17 +65,29 @@ function ProjectBlock({ project, index }: { project: typeof projects[0]; index: 
         {/* Image */}
         <div
           ref={imgWrapRef}
-          className="overflow-hidden rounded"
+          className="overflow-hidden rounded-lg relative"
           style={{ aspectRatio: isEven ? "16/9" : "21/9" }}
         >
           <div ref={imgInnerRef} className="w-full h-full will-change-transform">
             <PlaceholderImage
+              src={project.thumbnail || project.heroImage}
+              alt={project.title}
               gradient={projectGradients[index % projectGradients.length]}
               className="w-full h-full proj-img"
               aspectRatio=""
               label={project.title}
             />
           </div>
+
+          {/* Metric highlight badge */}
+          {project.results && project.results[0] && (
+            <div className="absolute bottom-4 left-4 bg-black/80 backdrop-blur-md border border-white/15 px-3.5 py-1.5 rounded-full z-10">
+              <span className="font-body text-[11px] text-[#F1F1EB] font-medium tracking-[0.03em] flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#8B2020]" />
+                {project.results[0]}
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Title row */}
@@ -97,8 +109,8 @@ function ProjectBlock({ project, index }: { project: typeof projects[0]; index: 
           {project.shortDescription}
         </p>
         <div className="flex flex-wrap gap-2 mt-4">
-          {project.tools.slice(0, 4).map((tool) => (
-            <span key={tool} className="font-body text-[11px] border border-white/[0.1] text-white/35 rounded-full px-3 py-1">
+          {project.tools.map((tool) => (
+            <span key={tool} className="font-body text-[11px] border border-white/[0.1] text-white/40 rounded-full px-3 py-1">
               {tool}
             </span>
           ))}

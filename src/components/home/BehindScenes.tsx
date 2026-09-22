@@ -95,10 +95,17 @@ export default function BehindScenes() {
         {/* Center image placeholder */}
         <div
           ref={centerRef}
-          className="relative z-10 mx-auto overflow-hidden rounded-lg border border-white/[0.08] will-change-transform"
+          className="relative z-10 mx-auto overflow-hidden rounded-lg border border-white/[0.08] shadow-2xl will-change-transform"
           style={{ width: "clamp(220px,30vw,360px)", aspectRatio: "3/4" }}
         >
-          <PlaceholderImage gradient={gradients.behind} className="w-full h-full" aspectRatio="" label="Behind the Scenes" />
+          <PlaceholderImage
+            src="https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=800"
+            alt="Behind the scenes content creation"
+            gradient={gradients.behind}
+            className="w-full h-full grayscale hover:grayscale-0 transition-all duration-700"
+            aspectRatio=""
+            label="Behind the Scenes"
+          />
         </div>
       </div>
     </section>

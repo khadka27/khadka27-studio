@@ -5,34 +5,36 @@ import CustomCursor from "@/components/motion/CustomCursor";
 import PageTransition from "@/components/motion/PageTransition";
 
 export const metadata: Metadata = {
-  title: "Roshan Khadka — Designer & Developer",
+  title: "Raj Gupta — Content Creator | Social Media Manager | Digital Marketing Specialist",
   description:
-    "UI/UX Designer and Frontend Developer based in Kathmandu, Nepal. Building thoughtful, refined digital experiences that make a difference.",
+    "A creative and digitally savvy content creator based in London, UK. Crafting engaging content that drives results across all major platforms.",
   keywords: [
-    "UI/UX Designer",
-    "Frontend Developer",
-    "Next.js",
-    "Portfolio",
-    "Kathmandu",
-    "Nepal",
+    "Raj Gupta",
+    "Content Creator",
+    "Social Media Manager",
+    "Digital Marketing Specialist",
+    "London",
+    "TikTok Marketing",
+    "Paid Advertising",
+    "Video Editing",
   ],
-  authors: [{ name: "Roshan Khadka" }],
-  creator: "Roshan Khadka",
+  authors: [{ name: "Raj Gupta" }],
+  creator: "Raj Gupta",
   openGraph: {
     type: "website",
-    locale: "en_US",
-    url: "https://roshankhadka.dev",
-    title: "Roshan Khadka — Designer & Developer",
+    locale: "en_GB",
+    url: "https://rajgupta.dev",
+    title: "Raj Gupta — Content Creator & Digital Marketing Specialist",
     description:
-      "UI/UX Designer and Frontend Developer based in Kathmandu, Nepal. Building thoughtful, refined digital experiences.",
-    siteName: "Roshan Khadka Portfolio",
+      "Crafting engaging content that drives results across all major platforms. London, UK.",
+    siteName: "Raj Gupta Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Roshan Khadka — Designer & Developer",
+    title: "Raj Gupta — Content Creator & Digital Marketing Specialist",
     description:
-      "UI/UX Designer and Frontend Developer based in Kathmandu, Nepal.",
-    creator: "@roshankhadka",
+      "Crafting engaging content that drives results across all major platforms.",
+    creator: "@thefoodiety",
   },
   robots: {
     index: true,

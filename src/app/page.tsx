@@ -13,6 +13,7 @@ import About from "@/components/home/About";
 import DesignerCoder from "@/components/home/DesignerCoder";
 import Experience from "@/components/home/Experience";
 import CapturedMoments from "@/components/home/CapturedMoments";
+import Testimonials from "@/components/home/Testimonials";
 import ContactCTA from "@/components/home/ContactCTA";
 import Contact from "@/components/home/Contact";
 import Footer from "@/components/layout/Footer";
@@ -41,6 +42,7 @@ export default function Home() {
           <Experience />
           <CurvedMarquee count={5} label="Captured Moments/" speed={0.6} direction="right" />
           <CapturedMoments />
+          <Testimonials />
           <CurvedTransition from="dark" to="light" />
           <ContactCTA />
           <Contact />

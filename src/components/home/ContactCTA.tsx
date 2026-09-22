@@ -89,9 +89,8 @@ export default function ContactCTA() {
             </h2>
           </div>
 
-          <p className="font-body text-[clamp(14px,1.4vw,17px)] leading-relaxed text-[#8D8D87] max-w-[420px] mb-12 relative z-10">
-            I&apos;m available for freelance projects, design systems, and
-            high-impact digital collaborations.
+          <p className="font-body text-[clamp(14px,1.4vw,17px)] leading-relaxed text-[#8D8D87] max-w-[440px] mb-12 relative z-10">
+            I&apos;m available for social media management, high-impact content production, and data-driven growth campaigns.
           </p>
 
           <div className="relative z-10">
@@ -103,11 +102,12 @@ export default function ContactCTA() {
           </div>
 
           {/* Social Links */}
-          <div className="flex items-center gap-8 mt-16 relative z-10">
+          <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-8 mt-16 relative z-10">
             {[
-              { label: "LinkedIn", href: portfolioData.socialLinks.linkedin },
-              { label: "GitHub", href: portfolioData.socialLinks.github },
+              { label: "TikTok", href: portfolioData.socialLinks.tiktok },
               { label: "Instagram", href: portfolioData.socialLinks.instagram },
+              { label: "LinkedIn", href: portfolioData.socialLinks.linkedin },
+              { label: "YouTube", href: portfolioData.socialLinks.youtube },
             ].map((social) => (
               <a
                 key={social.label}

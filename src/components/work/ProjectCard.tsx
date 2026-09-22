@@ -24,7 +24,14 @@ export default function ProjectCard({ project, index, variant = "large" }: Proje
       <div className="flex-1 min-w-[300px]">
         <Link href={`/work/${project.slug}`} className="no-underline block" data-cursor="project">
           <div className="overflow-hidden rounded aspect-[4/3] group">
-            <PlaceholderImage gradient={grad} className="w-full h-full proj-img group-hover:scale-[1.04] transition-transform duration-700" aspectRatio="" label={project.title} />
+            <PlaceholderImage
+              src={project.thumbnail || project.heroImage}
+              alt={project.title}
+              gradient={grad}
+              className="w-full h-full proj-img group-hover:scale-[1.04] transition-transform duration-700"
+              aspectRatio=""
+              label={project.title}
+            />
           </div>
           <div className="mt-4">
             <div className="flex justify-between items-center mb-1.5">
@@ -52,7 +59,14 @@ export default function ProjectCard({ project, index, variant = "large" }: Proje
           <span className="font-body text-[11px] text-[#8D8D87]/40">{project.year}</span>
         </div>
         <div className="overflow-hidden rounded" style={{ aspectRatio: isEven ? "16/9" : "21/9" }}>
-          <PlaceholderImage gradient={grad} className="w-full h-full proj-img" aspectRatio="" label={project.title} />
+          <PlaceholderImage
+            src={project.thumbnail || project.heroImage}
+            alt={project.title}
+            gradient={grad}
+            className="w-full h-full proj-img"
+            aspectRatio=""
+            label={project.title}
+          />
         </div>
         <div className="flex justify-between items-center mt-5">
           <h3 className="font-display font-bold text-[#F1F1EB] leading-none" style={{ fontSize: "clamp(1.5rem,4vw,3rem)", letterSpacing: "-0.02em" }}>{project.title}</h3>

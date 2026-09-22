@@ -1,6 +1,10 @@
 "use client";
 
+import { useState } from "react";
+
 interface PlaceholderImageProps {
+  src?: string;
+  alt?: string;
   className?: string;
   gradient?: string;
   label?: string;
@@ -23,30 +27,51 @@ export const gradients = {
 };
 
 export default function PlaceholderImage({
+  src,
+  alt,
   className = "",
   gradient = "from-[#d8d8ce] via-[#c8c8be] to-[#b8b8ae]",
   label,
   aspectRatio = "aspect-video",
 }: PlaceholderImageProps) {
+  const [hasError, setHasError] = useState(false);
+
   return (
     <div
       className={`relative bg-gradient-to-br ${gradient} ${aspectRatio} ${className} overflow-hidden border border-white/[0.05]`}
     >
-      {/* Subtle fine architectural grid pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.06] pointer-events-none"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.2) 1px, transparent 1px)",
-          backgroundSize: "32px 32px",
-        }}
-      />
-      {label && (
-        <div className="absolute inset-0 flex items-center justify-center p-4">
-          <span className="font-body text-[11px] tracking-[0.24em] uppercase text-white/40 font-mono text-center select-none">
-            {label}
-          </span>
-        </div>
+      {src && !hasError ? (
+        <>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={src}
+            alt={alt || label || "Visual asset"}
+            loading="lazy"
+            decoding="async"
+            onError={() => setHasError(true)}
+            className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-black/10 pointer-events-none" />
+        </>
+      ) : (
+        <>
+          {/* Subtle fine architectural grid pattern */}
+          <div
+            className="absolute inset-0 opacity-[0.06] pointer-events-none"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.2) 1px, transparent 1px)",
+              backgroundSize: "32px 32px",
+            }}
+          />
+          {label && (
+            <div className="absolute inset-0 flex items-center justify-center p-4">
+              <span className="font-body text-[11px] tracking-[0.24em] uppercase text-white/40 font-mono text-center select-none">
+                {label}
+              </span>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

@@ -108,6 +108,31 @@ export default function Experience() {
             ))}
           </div>
         </div>
+
+        {/* Credentials & Certifications Grid */}
+        <div className="mt-20 pt-14 border-t border-white/[0.08]">
+          <p className="font-body text-[11px] tracking-[0.2em] uppercase text-white/40 mb-8 font-medium">
+            Verified Credentials &amp; Degrees/
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {portfolioData.achievements.map((ach, idx) => (
+              <div
+                key={idx}
+                className="border border-white/[0.08] bg-white/[0.02] hover:bg-white/[0.05] p-5 rounded-lg transition-all duration-300"
+              >
+                <span className="font-mono text-[11px] text-[#8B2020] tracking-wider block mb-2 font-semibold">
+                  {ach.year}
+                </span>
+                <h4 className="font-display font-bold text-[15px] text-[#F1F1EB] mb-1 leading-snug">
+                  {ach.title}
+                </h4>
+                <p className="font-body text-[12px] text-[#8D8D87]">
+                  {ach.organization}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

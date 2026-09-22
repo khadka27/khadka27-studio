@@ -7,27 +7,35 @@ import { gsap, ScrollTrigger } from "@/lib/gsap";
 const serviceVisuals = [
   {
     id: "01",
-    tag: "DESIGN SYSTEMS & PROTOTYPING",
-    title: "User Experience & Visual Interface",
-    description: "Figma wireframing, fluid design tokens, and human-centered design systems.",
+    tag: "MULTI-FORMAT PRODUCTION & STORYTELLING",
+    title: "Content Creation",
+    description: "End-to-end production across text, image, and video tailored for high engagement and platform resonance.",
     gradient: "from-[#1a1c18] via-[#121411] to-[#0a0c09]",
-    badge: "01 / UI & UX",
+    badge: "01 / CONTENT",
   },
   {
     id: "02",
-    tag: "CLOUD & API ARCHITECTURE",
-    title: "Full-Stack Web Engineering",
-    description: "Modern Next.js App Router, TypeScript, scalable databases, and clean REST APIs.",
+    tag: "SHORT-FORM PACING & MOTION DESIGN",
+    title: "Video Editing",
+    description: "Viral short-form storytelling using Premiere Pro and CapCut for TikTok, Reels, and YouTube Shorts.",
     gradient: "from-[#17191d] via-[#101216] to-[#090b0d]",
-    badge: "02 / FULL-STACK",
+    badge: "02 / VIDEO",
   },
   {
     id: "03",
-    tag: "CORE WEB VITALS & ACCESSIBILITY",
-    title: "Performance & Technical Optimization",
-    description: "Sub-second loading, Lighthouse 95+ scores, WCAG a11y compliance, and fluid 60fps animations.",
+    tag: "DATA ANALYTICS & AUDIENCE TARGETING",
+    title: "Social Media Strategy",
+    description: "Analytics-backed growth strategies powered by Meta Business Suite, Instagram Insights, and Google Analytics.",
     gradient: "from-[#1d1719] via-[#141012] to-[#0d090a]",
-    badge: "03 / OPTIMIZATION",
+    badge: "03 / STRATEGY",
+  },
+  {
+    id: "04",
+    tag: "PAID CAMPAIGNS & A/B TESTING",
+    title: "Paid Advertising",
+    description: "High-ROI Facebook and Instagram ad campaigns optimized through strategic audience segmentation and testing.",
+    gradient: "from-[#161a1d] via-[#0f1316] to-[#080b0d]",
+    badge: "04 / PAID ADS",
   },
 ];
 
@@ -138,8 +146,8 @@ export default function WhatIDo() {
               What I Do/
             </p>
             <p className="font-body text-[clamp(14px,1.4vw,17px)] leading-[1.8] text-[#8D8D87] max-w-[500px]">
-              I design and build digital products that are as thoughtful as they are functional —
-              from refined UI design systems to resilient, full-stack applications that scale.
+              I craft engaging content and data-backed digital marketing strategies —
+              from viral short-form video to targeted ad campaigns that drive measurable growth.
             </p>
           </div>
 

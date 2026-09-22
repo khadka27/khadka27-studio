@@ -30,7 +30,9 @@ export default function RelatedWorks({ projects }: { projects: Project[] }) {
             <Link href={`/work/${project.slug}`} className="block no-underline related-wrap" data-cursor="project">
               <div className="overflow-hidden rounded aspect-[4/3] mb-4">
                 <PlaceholderImage
-                  gradient={projectGradients[project.slug] ?? gradients.marquee}
+                  src={project.thumbnail || project.heroImage}
+                  alt={project.title}
+                  gradient={gradients.marquee}
                   className="w-full h-full related-img"
                   aspectRatio=""
                   label={project.title}

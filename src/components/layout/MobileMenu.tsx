@@ -144,10 +144,17 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
       {/* Bottom socials */}
       <div className="flex gap-6 mt-8">
-        {["LinkedIn", "GitHub", "Instagram"].map((social) => (
+        {[
+          { label: "TikTok", href: "https://www.tiktok.com/@thefoodiety" },
+          { label: "Instagram", href: "https://www.instagram.com/thefoodiety/" },
+          { label: "LinkedIn", href: "https://www.linkedin.com/in/raj-gupta-3b88102b3/" },
+          { label: "YouTube", href: "https://youtube.com" },
+        ].map((social) => (
           <a
-            key={social}
-            href="#"
+            key={social.label}
+            href={social.href}
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               color: "rgba(241,241,235,0.4)",
               fontSize: "12px",
@@ -156,7 +163,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               textTransform: "uppercase",
             }}
           >
-            {social}
+            {social.label}
           </a>
         ))}
       </div>

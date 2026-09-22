@@ -55,32 +55,58 @@ export default function Header() {
         style={{ opacity: 0 }}
       >
         <div className="max-w-[1340px] mx-auto flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group no-underline">
-            <div className="w-8 h-8 rounded-full bg-[#050505] flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110">
-              <span className="font-display text-[#F1F1EB] text-[11px] font-bold tracking-[0.04em]">
-                {portfolioData.initials}
-              </span>
-            </div>
-            <span className="hidden sm:block font-body text-[11px] tracking-[0.12em] uppercase text-[#8D8D87] font-medium">
-              {portfolioData.tagline}
+          {/* Logo matching r.R */}
+          <Link href="/" className="group no-underline">
+            <span className="font-['Hanken_Grotesk',sans-serif] text-[clamp(1.25rem,1.8vw,1.55rem)] font-black tracking-tight text-[#050505]">
+              r.G
             </span>
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
-            {navLinks.map((link) => (
-              <RollingLink key={link.href} {...link} />
-            ))}
+          {/* Desktop Nav - Centered */}
+          <nav className="hidden md:flex items-center gap-9" aria-label="Main navigation">
+            <a
+              href="#works"
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector("#works")?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="font-body text-[12px] tracking-[0.14em] uppercase font-semibold text-[#222] hover:text-[#050505] transition-colors no-underline"
+            >
+              Work
+            </a>
             <a
               href={portfolioData.resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center bg-[#050505] text-[#F1F1EB] rounded-full px-[22px] py-[10px] font-body text-[12px] tracking-[0.08em] no-underline font-medium hover:bg-[#222] transition-colors"
+              className="font-body text-[12px] tracking-[0.14em] uppercase font-semibold text-[#222] hover:text-[#050505] transition-colors no-underline"
             >
               Resume
             </a>
+            <a
+              href="#about"
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="font-body text-[12px] tracking-[0.14em] uppercase font-semibold text-[#222] hover:text-[#050505] transition-colors no-underline"
+            >
+              About
+            </a>
           </nav>
+
+          {/* Right Action: CONTACT ME */}
+          <div className="hidden md:block">
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="font-body text-[12px] tracking-[0.14em] uppercase font-semibold text-[#050505] hover:opacity-70 transition-opacity no-underline"
+            >
+              Contact Me
+            </a>
+          </div>
 
           {/* Mobile hamburger */}
           <button

@@ -52,18 +52,18 @@ export default function DesignerCoder() {
           </p>
 
           <div className="flex items-center justify-center gap-[clamp(40px,8vw,100px)] flex-wrap">
-            {/* Left — Designer */}
+            {/* Left — Creator */}
             <div className="designer-coder-item text-right opacity-0">
               <p className="font-body text-[11px] tracking-[0.16em] uppercase text-[#8D8D87] mb-2">
                 Part
               </p>
               <h3 className="font-serif italic text-[clamp(2.2rem,5vw,4.2rem)] text-[#050505] leading-none tracking-tight">
-                Designer
+                Creator
               </h3>
               <p className="font-body text-[13px] text-[#8D8D87] mt-3 max-w-[200px] leading-relaxed ml-auto">
-                UI/UX, Visual Systems,
+                Short-Form Video, Storytelling,
                 <br />
-                Figma &amp; Micro-Interactions
+                CapCut &amp; Visual Design
               </p>
             </div>
 
@@ -103,18 +103,18 @@ export default function DesignerCoder() {
               </div>
             </div>
 
-            {/* Right — Coder */}
+            {/* Right — Strategist */}
             <div className="designer-coder-item text-left opacity-0">
               <p className="font-body text-[11px] tracking-[0.16em] uppercase text-[#8D8D87] mb-2">
                 Part
               </p>
               <h3 className="font-display font-bold text-[clamp(2.2rem,5vw,4.2rem)] text-[#050505] leading-none tracking-tighter">
-                CODER
+                STRATEGIST
               </h3>
               <p className="font-body text-[13px] text-[#8D8D87] mt-3 max-w-[200px] leading-relaxed">
-                Next.js, TypeScript,
+                Meta Analytics, Paid Ads,
                 <br />
-                GSAP &amp; Creative Code
+                A/B Testing &amp; Systems Logic
               </p>
             </div>
           </div>

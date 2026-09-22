@@ -1,166 +1,207 @@
 export interface Project {
+  id?: string;
   slug: string;
   title: string;
   year: string;
+  date?: string;
   type: string;
+  category: string[];
   shortDescription: string;
+  excerpt: string;
   description: string;
   tools: string[];
   roles: string[];
   client: string;
   thumbnail: string;
+  heroImage: string;
+  images: string[];
   gallery: string[];
+  featured: boolean;
   challenge: string;
   solution: string;
-  designDetails: string;
+  results: string[];
   outcome: string;
+  designDetails?: string;
   relatedProjects: string[];
   accentColor?: string;
 }
 
-export const projects: Project[] = [
+export const rawProjects = [
   {
-    slug: "sathi",
-    title: "SATHI",
-    year: "2025",
-    type: "Mobile App Design",
-    shortDescription:
-      "A mental health companion app designed to make emotional support accessible and stigma-free for young Nepalis.",
-    description:
-      "SATHI is a concept-based mental health companion app designed to make emotional support accessible, stigma-free, and deeply personal for young Nepalis. The product centers human connection above all else — pairing users with certified counselors while offering AI-assisted mood tracking.",
-    tools: ["Figma", "React Native", "Node.js", "PostgreSQL"],
-    roles: ["UI/UX Designer", "Frontend Developer"],
-    client: "Self-Initiated",
-    thumbnail: "/images/projects/sathi/thumbnail.jpg",
-    gallery: [
-      "/images/projects/sathi/gallery-1.jpg",
-      "/images/projects/sathi/gallery-2.jpg",
-      "/images/projects/sathi/gallery-3.jpg",
+    id: "ismt-tiktok-campaign",
+    title: "ISMT College TikTok Growth Campaign",
+    slug: "ismt-tiktok-campaign",
+    category: ["Social Media", "Video", "Content Strategy"],
+    description: "Comprehensive TikTok content strategy for ISMT College focusing on campus life, student stories, and trending formats to increase Gen Z engagement.",
+    excerpt: "TikTok campaign that boosted student engagement by 250%.",
+    thumbnail: "https://images.pexels.com/photos/5082579/pexels-photo-5082579.jpeg?auto=compress&cs=tinysrgb&w=800",
+    heroImage: "https://images.pexels.com/photos/5082579/pexels-photo-5082579.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    date: "2024-06",
+    client: "ISMT College",
+    tools: ["TikTok", "CapCut", "Canva", "DSLR Camera"],
+    featured: true,
+    challenge: "ISMT College needed to increase their visibility among Gen Z students and showcase campus life in an authentic, engaging way that resonated with younger audiences.",
+    solution: "Created original TikTok content leveraging trending formats and student-focused storytelling. Captured high-quality DSLR footage of campus events and edited with CapCut to create thumb-stopping videos optimized for the platform.",
+    results: [
+      "250% increase in student engagement",
+      "Tripled follower count in 3 months",
+      "15+ viral videos with 100K+ views",
+      "Established strong Gen Z brand presence"
     ],
-    challenge:
-      "Mental health stigma in Nepal means that most users won't seek help openly. The design needed to feel private, safe, and genuinely warm — while still professional enough to build trust with a clinical audience.",
-    solution:
-      "We developed a calm, human-first visual language using warm earth tones and generous whitespace. Onboarding was reimagined as a conversation rather than a form. The information architecture hides clinical complexity behind a simple journal-first interface.",
-    designDetails:
-      "Typography uses a blend of a humanist serif for empathy-building headings and Inter for functional UI elements. The color system was derived from Nepali landscape references — terracotta, sage, and cream — intentionally avoiding the sterile blues common in health apps.",
-    outcome:
-      "The prototype received overwhelmingly positive feedback from a user study of 40 participants aged 18–28. 87% rated it 'more approachable than other mental health apps they'd seen.' Currently in development with a local NGO partner.",
-    relatedProjects: ["smart-docs", "song-playlist"],
-    accentColor: "#C4A882",
+    images: [
+      "https://images.pexels.com/photos/5082579/pexels-photo-5082579.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/5864245/pexels-photo-5864245.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ]
   },
   {
-    slug: "smart-docs",
-    title: "Smart Docs",
-    year: "2025",
-    type: "Web Application",
-    shortDescription:
-      "An AI-powered document management platform that turns unstructured data into structured, searchable knowledge.",
-    description:
-      "Smart Docs is an AI-powered document management platform that transforms raw, unstructured data into clean, searchable, and interconnected knowledge — built for teams that care deeply about their information architecture.",
-    tools: ["Next.js", "TypeScript", "OpenAI API", "Prisma", "PostgreSQL"],
-    roles: ["Full-Stack Developer", "Product Designer"],
-    client: "Startup Project",
-    thumbnail: "/images/projects/smart-docs/thumbnail.jpg",
-    gallery: [
-      "/images/projects/smart-docs/gallery-1.jpg",
-      "/images/projects/smart-docs/gallery-2.jpg",
+    id: "ismt-social-media-strategy",
+    title: "ISMT Multi-Platform Content Strategy",
+    slug: "ismt-social-media-strategy",
+    category: ["Social Media", "Content Strategy", "Analytics"],
+    description: "Developed and executed comprehensive content strategy across Instagram, Facebook, and TikTok with data-driven optimization.",
+    excerpt: "Multi-platform strategy driving 180% engagement increase.",
+    thumbnail: "https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=800",
+    heroImage: "https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    date: "2024-04",
+    client: "ISMT College",
+    tools: ["Meta Business Suite", "Instagram Insights", "Google Analytics", "Canva", "Adobe Photoshop"],
+    featured: true,
+    challenge: "Create cohesive content strategy across multiple platforms while maintaining consistent branding and maximizing engagement with limited resources.",
+    solution: "Researched audience preferences and developed platform-specific content calendars. Used Meta Business Suite and Instagram Insights to analyze performance and iterate on content strategy. Created branded templates in Canva and Photoshop for efficient production.",
+    results: [
+      "180% increase in overall engagement",
+      "Improved follower retention by 65%",
+      "45% increase in website traffic from social",
+      "Consistent daily posting maintained"
     ],
-    challenge:
-      "Most document tools treat files as isolated objects. Smart Docs needed to surface relationships between documents, surface key insights, and make search feel conversational — all without overwhelming the user.",
-    solution:
-      "We built a graph-based document relationship engine on top of PostgreSQL with pgvector for semantic search. The frontend abstracts all complexity into a clean three-panel layout: navigation, document view, and AI assistant sidebar.",
-    designDetails:
-      "The interface uses a disciplined monochromatic system — near-black sidebar, white content area, subtle grey AI panel. Typography is strictly functional: Inter throughout, with bold weights reserved for document titles and user prompts only.",
-    outcome:
-      "Launched to a beta cohort of 200 users. Average session duration increased 3× compared to their previous tools. Featured in a Nepali tech newsletter as one of the most promising local SaaS products of 2025.",
-    relatedProjects: ["futsal-nepal", "sathi"],
-    accentColor: "#4A6741",
+    images: [
+      "https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3183186/pexels-photo-3183186.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ]
   },
   {
-    slug: "futsal-nepal",
-    title: "Futsal Nepal Pro Zone",
-    year: "2024",
-    type: "Web Platform",
-    shortDescription:
-      "A booking and tournament management platform for Nepal's rapidly growing futsal community.",
-    description:
-      "Futsal Nepal Pro Zone is a comprehensive booking and tournament management platform for Nepal's rapidly growing futsal community — connecting court owners, players, and tournament organizers in one seamless ecosystem.",
-    tools: ["Next.js", "TypeScript", "Stripe", "Prisma", "Tailwind CSS"],
-    roles: ["Frontend Developer", "UI Designer"],
-    client: "Futsal Nepal Association",
-    thumbnail: "/images/projects/futsal-nepal/thumbnail.jpg",
-    gallery: [
-      "/images/projects/futsal-nepal/gallery-1.jpg",
-      "/images/projects/futsal-nepal/gallery-2.jpg",
+    id: "campus-event-coverage",
+    title: "Campus Event Photography & Video",
+    slug: "campus-event-coverage",
+    category: ["Video", "Photography", "Event"],
+    description: "Professional DSLR photography and videography of campus events, edited into engaging social media content.",
+    excerpt: "Professional event coverage increasing student interaction.",
+    thumbnail: "https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=800",
+    heroImage: "https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    date: "2024-03",
+    client: "ISMT College",
+    tools: ["DSLR Camera", "Adobe Premiere Pro", "CapCut", "Adobe Photoshop"],
+    featured: true,
+    challenge: "Capture the energy and excitement of campus events in a way that showcases college life and encourages prospective student applications.",
+    solution: "Used professional DSLR cameras to capture high-quality photos and videos of campus events. Applied advanced editing techniques and storytelling principles to create shareable content that resonated with students.",
+    results: [
+      "Increased student interaction by 120%",
+      "20+ successful event coverages",
+      "Content used in admission marketing",
+      "Boosted campus community engagement"
     ],
-    challenge:
-      "Court bookings in Nepal were entirely offline — phone calls, WhatsApp, and manual ledger management. The product needed to serve both tech-savvy urban players and less digitally fluent court owners simultaneously.",
-    solution:
-      "A dual-interface approach: a mobile-first booking app for players and a simplified admin dashboard for court owners. Both share the same design language but are optimized for their respective user mental models.",
-    designDetails:
-      "The visual system uses deep green and white — the natural colors of a futsal court — as primary anchors. The booking flow was designed to complete in under 60 seconds with zero dead-ends and clear recovery paths.",
-    outcome:
-      "Launched with 12 courts across Kathmandu. Over 1,200 bookings processed in the first three months. Court utilization increased by 40% on average. Now expanding to Pokhara and Butwal.",
-    relatedProjects: ["smart-docs", "car-collection"],
-    accentColor: "#2D5A3D",
+    images: [
+      "https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1097930/pexels-photo-1097930.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1157557/pexels-photo-1157557.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ]
   },
   {
-    slug: "song-playlist",
-    title: "Song Playlist",
-    year: "2024",
-    type: "App Redesign",
-    shortDescription:
-      "A concept redesign of a music streaming experience focused on discovery, emotion, and visual storytelling.",
-    description:
-      "Song Playlist is a concept-based music streaming app redesign focused on improving user engagement and usability through emotional design, intelligent discovery, and a visual language that matches the feeling of music itself.",
-    tools: ["Figma", "Framer", "React", "Tailwind CSS"],
-    roles: ["UI/UX Designer", "Interaction Designer"],
-    client: "Concept Project",
-    thumbnail: "/images/projects/song-playlist/thumbnail.jpg",
-    gallery: [
-      "/images/projects/song-playlist/gallery-1.jpg",
-      "/images/projects/song-playlist/gallery-2.jpg",
+    id: "paid-ad-campaigns",
+    title: "Facebook & Instagram Paid Ad Campaigns",
+    slug: "paid-ad-campaigns",
+    category: ["Paid Advertising", "Social Media"],
+    description: "Targeted paid advertising campaigns on Facebook and Instagram with A/B testing and audience optimization.",
+    excerpt: "Data-driven ad campaigns achieving 3.5x ROI.",
+    thumbnail: "https://images.pexels.com/photos/218717/pexels-photo-218717.jpeg?auto=compress&cs=tinysrgb&w=800",
+    heroImage: "https://images.pexels.com/photos/218717/pexels-photo-218717.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    date: "2024-02",
+    client: "Various Clients",
+    tools: ["Facebook Ads Manager", "Instagram Ads", "Meta Business Suite", "Google Analytics"],
+    featured: false,
+    challenge: "Maximize return on ad spend through strategic audience targeting, compelling ad creative, and continuous optimization.",
+    solution: "Conducted thorough audience research and created multiple ad variations for A/B testing. Monitored performance metrics daily and optimized targeting, creative, and budget allocation based on data insights.",
+    results: [
+      "Average ROI of 3.5x across campaigns",
+      "42% lower cost per acquisition",
+      "Campaign reach of 500K+ users",
+      "Conversion rate improved by 65%"
     ],
-    challenge:
-      "Existing music apps prioritize catalog breadth over the listening experience. Users feel overwhelmed by choice and disconnected from the emotion of the music. The redesign needed to bring the feeling back.",
-    solution:
-      "Redesigned around three core emotional states: Discovery, Focus, and Drift. Each mode shifts the interface's visual density, color temperature, and content hierarchy — dynamically responding to what the user wants to feel, not just hear.",
-    designDetails:
-      "Album artwork becomes the interface. Aggressive full-bleed album art with a sophisticated color extraction algorithm drives the UI palette per-track. Typography uses a large editorial serif for song titles — treating music like editorial content.",
-    outcome:
-      "The redesign was shared on Dribbble and received over 2,400 views in the first week. Selected as a case study at a local UX meetup. Several patterns have since been borrowed into real products.",
-    relatedProjects: ["sathi", "car-collection"],
-    accentColor: "#7B3F6E",
+    images: [
+      "https://images.pexels.com/photos/218717/pexels-photo-218717.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ]
   },
   {
-    slug: "car-collection",
-    title: "Sports & Luxury Cars",
-    year: "2024",
-    type: "E-Commerce Platform",
-    shortDescription:
-      "A premium digital showroom for high-end sports and luxury vehicles — where the car is always the hero.",
-    description:
-      "Sports & Luxury Car Collection is a premium digital showroom experience for high-end vehicles. The brief was simple: make the car the hero. Everything else — UI, navigation, copy — exists only to frame and elevate the product.",
-    tools: ["Next.js", "TypeScript", "Three.js", "Framer Motion", "Stripe"],
-    roles: ["Frontend Developer", "Creative Director"],
-    client: "Auto Dealer, Kathmandu",
-    thumbnail: "/images/projects/car-collection/thumbnail.jpg",
-    gallery: [
-      "/images/projects/car-collection/gallery-1.jpg",
-      "/images/projects/car-collection/gallery-2.jpg",
+    id: "brand-identity-design",
+    title: "Social Media Brand Identity Design",
+    slug: "brand-identity-design",
+    category: ["Branding", "Design"],
+    description: "Created cohesive visual brand identity and design templates for consistent social media presence.",
+    excerpt: "Brand design system improving content recognition.",
+    thumbnail: "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=800",
+    heroImage: "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    date: "2024-01",
+    client: "ISMT College",
+    tools: ["Canva", "Adobe Photoshop", "Figma"],
+    featured: false,
+    challenge: "Establish consistent visual branding across all social platforms to improve brand recognition and professional appearance.",
+    solution: "Designed comprehensive brand guidelines and created reusable templates in Canva and Photoshop. Developed post templates, story templates, and graphic elements aligned with college branding.",
+    results: [
+      "95% brand consistency achieved",
+      "Content production time reduced by 40%",
+      "Improved brand recognition among students",
+      "50+ reusable templates created"
     ],
-    challenge:
-      "Luxury car buyers expect an experience that matches the caliber of the product. Generic e-commerce templates destroy the premium perception. The product needed to feel closer to a magazine editorial than a shopping cart.",
-    solution:
-      "A cinematic, full-screen presentation layer where each vehicle gets its own visual treatment. Large format photography, animated specifications panels, and a minimal-chrome interface inspired by automotive print advertising.",
-    designDetails:
-      "The design system uses a strict black-and-white palette punctuated by the natural colors of each vehicle. Headings use a custom-weighted condensed typeface. White space is treated as a luxury asset, not empty space.",
-    outcome:
-      "Conversion rate improved 28% vs the client's previous platform. Average time-on-page increased from 1.2 to 4.7 minutes. Three vehicles sold directly through the platform in the first month of launch.",
-    relatedProjects: ["futsal-nepal", "song-playlist"],
-    accentColor: "#8B1C1C",
+    images: [
+      "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ]
   },
+  {
+    id: "content-calendar-management",
+    title: "Strategic Content Calendar Management",
+    slug: "content-calendar-management",
+    category: ["Content Strategy", "Planning"],
+    description: "Comprehensive content planning and calendar management ensuring consistent, timely delivery across all platforms.",
+    excerpt: "Calendar system ensuring 100% on-time delivery.",
+    thumbnail: "https://images.pexels.com/photos/4065876/pexels-photo-4065876.jpeg?auto=compress&cs=tinysrgb&w=800",
+    heroImage: "https://images.pexels.com/photos/4065876/pexels-photo-4065876.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    date: "2023-12",
+    client: "ISMT College",
+    tools: ["Google Calendar", "Later", "Meta Business Suite", "Trello"],
+    featured: false,
+    challenge: "Maintain consistent posting schedule across multiple platforms while balancing content quality and team collaboration.",
+    solution: "Developed systematic content calendar using Google Calendar and scheduling tools like Later. Coordinated with design and marketing teams to ensure aligned messaging and timely content delivery.",
+    results: [
+      "100% on-time content delivery",
+      "3 months of content planned in advance",
+      "Improved team collaboration efficiency",
+      "Enhanced audience trust through consistency"
+    ],
+    images: [
+      "https://images.pexels.com/photos/4065876/pexels-photo-4065876.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ]
+  }
 ];
+
+export const projects: Project[] = rawProjects.map((p, idx, arr) => {
+  const otherSlugs = arr.filter((_, i) => i !== idx).map((item) => item.slug);
+  return {
+    ...p,
+    year: p.date ? p.date.split("-")[0] : "2024",
+    type: p.category[0] || "Social Media",
+    shortDescription: p.excerpt,
+    gallery: p.images,
+    roles: ["Content Creator", "Digital Strategist"],
+    outcome: p.results.join(". "),
+    designDetails: `Developed using ${p.tools.join(", ")} to craft highly engaging visual narratives aligned with brand voice and targeted audience demographics.`,
+    relatedProjects: otherSlugs.slice(0, 2),
+    accentColor: idx % 2 === 0 ? "#8B2020" : "#2E3A2B",
+  };
+});
+
+export const featuredProjects = projects.filter((p) => p.featured);
 
 export function getProjectBySlug(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);
