@@ -175,7 +175,7 @@ export const portfolioData = {
     youtube: creatorInfo.socialLinks.youtube,
     github: "https://github.com",
   },
-  resumeUrl: "/resume.pdf",
+  resumeUrl: "/Raj%20CV.pdf",
   stats,
   services: [
     {

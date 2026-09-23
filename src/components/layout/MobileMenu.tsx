@@ -12,7 +12,7 @@ const menuLinks = [
   { href: "#works", label: "Work" },
   { href: "#about", label: "About" },
   { href: "#contact", label: "Contact" },
-  { href: "/resume.pdf", label: "Resume", external: true },
+  { href: "/Raj%20CV.pdf", label: "Resume", external: true },
 ];
 
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
